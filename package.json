@@ -1,0 +1,22 @@
+{
+  "name": "scraping-headless-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^2.0.0",
+    "cheerio": "^0.20.0",
+    "nightmare": "^2.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "John Tribolet II <john@tribolet.info>",
+  "license": "GPL-3.0",
+  "repository" :
+    { "type" : "git"
+    , "url" : "https://github.com/Majicbob/scraping-headless-js.git"
+    }
+}
