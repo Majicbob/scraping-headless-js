@@ -93,12 +93,11 @@ function getStatTable(link, callback) {
         });
 }
 
-// clean up the combined table
+// clean up the combined table: fix image srcs, remove unneeded code, etc
 function cleanUpTable(table) {
-    $ = cheerio.load(table, {
-            decodeEntities: true,
-            //normalizeWhitespace: true
-        });
+    // fs.writeFile('table-unedited.html', table);
+
+    var $ = cheerio.load(table);
 
     // fix images
     $('img').each(function(i, element) {
@@ -110,11 +109,15 @@ function cleanUpTable(table) {
         }
     });
 
+    // add classes for dataTables
+    $('table').addClass('table table-bordered table-hover');
+
     $('noscript').remove();
 
     $('span').each(function(i, elem) {
         console.log( $(this).text() );
     });
+
     console.log('Write combined table out');
     fs.writeFile('bows-new-combined-table-cleaned.html', $.html());
 }
