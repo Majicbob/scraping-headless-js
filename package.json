@@ -6,7 +6,8 @@
   "dependencies": {
     "async": "^2.0.0",
     "cheerio": "^0.20.0",
-    "nightmare": "^2.5.2"
+    "nightmare": "^2.5.2",
+    "tidy-html5": "^0.1.1"
   },
   "devDependencies": {},
   "scripts": {
@@ -15,8 +16,8 @@
   "keywords": [],
   "author": "John Tribolet II <john@tribolet.info>",
   "license": "GPL-3.0",
-  "repository" :
-    { "type" : "git"
-    , "url" : "https://github.com/Majicbob/scraping-headless-js.git"
-    }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Majicbob/scraping-headless-js.git"
+  }
 }
