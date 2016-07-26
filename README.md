@@ -34,3 +34,6 @@ Additional details will be available in the project README.
 
 ### [Thea: The Awakening Wiki](http://thea-the-awakening.wikia.com/)
 Crafting data is presented in different tables, on different pages, and sometimes toggled hidden. This makes searching and sorting difficult for most weapons/armor. Consolidate to a single table and possible a sqllite db later.
+
+
+[![Analytics](https://ga-beacon.appspot.com/UA-81349523-4/scraping-headless-js/readme)](https://github.com/igrigorik/ga-beacon)
