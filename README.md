@@ -21,11 +21,15 @@ Project | Information
 Project | Information
 --- | ---
 [CasperJS](http://casperjs.org/)   |    Navigation scripting & testing for PhantomJS and SlimerJS. Makes some stuff much simpler to use and work with.
-[NightmareJS](https://github.com/segmentio/nightmare)   |   High level browser automation library that uses [Electron](http://electron.atom.io/) under the hood.
+[NightmareJS](https://github.com/segmentio/nightmare)   |   High level browser automation library that uses  [Electron](http://electron.atom.io/) under the hood.
 [GhostDriver](https://github.com/detro/ghostdriver)   |   Implementation of the Remote [WebDriver Wire Protocol][1], using PhantomJS as back-end. This allows adding a Phantom instance to a Selenium Grid and driving it with any of the WebDrive clients.<br/>*Currently looking for a new maintainer as of 2016/07.*
+[Cheerio][3]  |  An implementation of a subset of jQuery core designed for server-side use. It has good performance and is faster than [JSDOM][4]. I use it frequently in combination with some of the other tools mentioned here. Also can be used with [Request][2] (a simple HTTP client) without any of the headless browsers. For simpler scraping/automation tasks this combination is quick and easy.
+
 
 [1]: https://w3c.github.io/webdriver/webdriver-spec.html
-
+[2]: https://github.com/request/request
+[3]: https://github.com/cheeriojs/cheerio
+[4]: https://github.com/tmpvar/jsdom
 
 ## Projects
 List of specific projects with some general info about them.
