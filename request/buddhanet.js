@@ -1,35 +1,50 @@
-var request = require('request');
-var cheerio = require('cheerio');
-var fs      = require('fs');
-var async   = require('async');
+/**
+ * Download all eBooks from BuddaNet Library http://www.buddhanet.net/ebooks.htm
+ *
+ * @author   John Tribolet <john@tribolet.info>
+ * @created  2016-08-07 21:12
+ */
+
+'use strict';
+
+let request = require('request');
+let cheerio = require('cheerio');
+let fs      = require('fs');
+let async   = require('async');
 
 
-var baseUrl    = 'http://www.buddhanet.net/';
-var ebooksHome = baseUrl + 'ebooks.htm';
+let baseUrl    = 'http://www.buddhanet.net/';
+let ebooksHome = baseUrl + 'ebooks.htm';
 
 
+// download and save a file
 function download(url, dest, cb) {
-    var file = fs.createWriteStream(dest);
+    let file = fs.createWriteStream(dest);
     request(url).pipe(file);
-    file.on('finish', function() {
-        log('Downloaded ' + dest);
+    file.on('finish', function () {
+        console.log('Downloaded ' + dest);
         file.close(cb);
     });
 }
 
+// load a category page, parse and clean up all the ebook download links
 function processCategories(cats) {
     async.each(cats, function(category, cbFinished) {
         request(baseUrl + category.link, function(err, res, body) {
             console.log('----------------');
             console.log(category.name);
-            var $ = cheerio.load(body);
+            let $ = cheerio.load(body);
 
             // get download urls
-            var links = [];
-            $('#wlinks table table a').each(function(i, elem) {
-                var link = $(this).attr('href');
+            let links = [];
+            $('#wlinks table table a').each(function (i, elem) {
+                let link = $(this).attr('href');
 
-                if ( typeof link !== 'undefined' && link.includes('pdf') ) {
+                // only get pdf or zip files
+                if ( typeof link !== 'undefined'
+                     && ( link.includes('.pdf') | link.includes('.zip') )
+                ) {
+                    // add base url if its a relative link
                     if (! link.includes('buddhanet.net')) {
                         link = baseUrl + link;
                     }
@@ -44,7 +59,9 @@ function processCategories(cats) {
     });
 }
 
+// create directory for the category and save all files to it
 function downloadLinks(category, links) {
+    console.log('Download Category: ' + category);
     if (!fs.existsSync(category)){
         fs.mkdirSync(category);
     }
@@ -53,12 +70,12 @@ function downloadLinks(category, links) {
 // get category links
 request(ebooksHome, function(err, res, body) {
 
-    var cats      = [];
-    var $         = cheerio.load(body);
-    var menuLinks = $('.linksMenu a');
+    let cats      = [];
+    let $         = cheerio.load(body);
+    let menuLinks = $('.linksMenu a');
 
-    menuLinks.each(function(i, elem) {
-        var item = {
+    menuLinks.each(function (i, elem) {
+        let item = {
             name: $(this).text(),
             link: $(this).attr('href')
         };
