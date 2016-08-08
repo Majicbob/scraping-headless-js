@@ -29,8 +29,14 @@ function download(url, dest, cb) {
 
 // load a category page, parse and clean up all the ebook download links
 function processCategories(cats) {
-    async.each(cats, function(category, cbFinished) {
-        request(baseUrl + category.link, function(err, res, body) {
+    async.each(cats, function (category, cbFinished) {
+        let categoryUrl = baseUrl + category.link;
+        request(categoryUrl, function (err, res, body) {
+            if (err) {
+                console.log('Error loading category page ' + categoryUrl + '\n ' + err);
+                return;
+            }
+
             console.log('----------------');
             console.log(category.name);
             let $ = cheerio.load(body);
@@ -65,10 +71,26 @@ function downloadLinks(category, links) {
     if (!fs.existsSync(category)){
         fs.mkdirSync(category);
     }
+
+    async.each(links, function (link, cbFinished) {
+        // get filename from url
+        let startOfName = link.lastIndexOf('/') + 1;
+        let filename    = link.substring(startOfName);
+        let destPath    = category + '/' + filename;
+
+        // download if file doesn't exist
+        fs.stat(destPath, (err, stat) => { if (err.code == 'ENOENT') {
+            download(link, destPath);
+        }});
+    });
 }
 
 // get category links
-request(ebooksHome, function(err, res, body) {
+request(ebooksHome, function (err, res, body) {
+    if (err) {
+        console.log('Error loading main page ' + ebooksHome + '\n ' + err);
+        return;
+    }
 
     let cats      = [];
     let $         = cheerio.load(body);
