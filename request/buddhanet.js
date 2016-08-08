@@ -60,6 +60,7 @@ function processCategories(cats) {
             });
 
             console.log(links);
+            downloadLinks(category.name, links);
             cbFinished();
         })
     });
